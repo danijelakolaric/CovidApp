@@ -1,0 +1,62 @@
+﻿@model CovidApp.Entity.DTOs.CovidModelDTO
+
+<div class="text-center">
+    <h1 class="display-4">COVID Statistics in Croatia</h1>
+</div>
+<br />
+<div class="container">
+    <form method="post" asp-action="Index" asp-controller="Home">
+        Filter data by date period from
+        <input type="date" asp-for="SearchModelParameters.FromDate" />
+        to
+        <input type="date" asp-for="SearchModelParameters.ToDate" />
+        <br /><br />
+        Filter data by confirmed cases from
+        <input type="number" asp-for="SearchModelParameters.ConfirmedMin" />
+        to
+        <input type="number" asp-for="SearchModelParameters.ConfirmedMax" />
+        <br /><br />
+        <button type="submit" class="btn-lg">Get COVID Data</button>
+    </form>
+</div>
+<br />
+@if (Model.CovidData.Count > 0)
+{
+    <div id="covidData">
+        <h1>List of Covid Data</h1>
+        <br />
+        <table id="covidDataTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Active</th>
+                    <th>Confirmed</th>
+                    <th>Deaths</th>
+                    <th>Recovered</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CovidData)
+                {
+                    <tr>
+                        <td>
+                            @item.Date
+                        </td>
+                        <td>
+                            @item.Active
+                        </td>
+                        <td>
+                            @item.Confirmed
+                        </td>
+                        <td>
+                            @item.Deaths
+                        </td>
+                        <td>
+                            @item.Recovered
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
